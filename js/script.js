@@ -1,3 +1,10 @@
+const computerSelection = computerPlay();
+const playerSelection = makeSelection();
+
+console.log(playRound(playerSelection, computerSelection));
+
+
+
 function computerPlay() {
     const choices = ["Rock", "Paper", "Scissors"];
     const rand = Math.floor(Math.random() * choices.length);
@@ -17,6 +24,8 @@ function makeSelection() {
 
         validChoice = (choice === "rock" || choice === "paper" || choice === "scissors") ? true : false;
     }
+
+    choice = choice[0].toUpperCase() + choice.slice(1).toLowerCase();
 
     return choice;
 }
