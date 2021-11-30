@@ -11,6 +11,7 @@ function game() {
         let result = playRound(playerSelection, computerSelection);
         
         console.log(result);
+        alert(result);
         
         if (result.includes("win")) playerScore++;
         else if (result.includes("lose")) cpuScore++;
