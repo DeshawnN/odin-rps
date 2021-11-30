@@ -1,14 +1,9 @@
-game();
-
 function game() {
     let playerScore = 0;
     let cpuScore = 0;
     
     for (let i = 0; i < 5; i++) {
-        const playerSelection = makeSelection();
-        const computerSelection = computerPlay();
-
-        let result = playRound(playerSelection, computerSelection);
+        let result = playRound();
         
         console.log(result);
         alert(result);
@@ -24,23 +19,33 @@ function game() {
     else console.log("Somehow... that ended in a tie");
 }
 
-function playRound(playerSelection, computerSelection) {
-    const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
-    const loseMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
-
-    if (playerSelection === computerSelection) {
-        return "It's a tie!";
-    } else if (playerSelection === "Rock") {
-        if (computerSelection === "Paper") return loseMessage;
-        else if (computerSelection === "Scissors") return winMessage; 
-    } else if (playerSelection === "Paper") {
-        if (computerSelection === "Scissors") return loseMessage;
-        else if (computerSelection === "Rock") return winMessage;
-    } else if (playerSelection === "Scissors") {
-        if (computerSelection === "Rock") return loseMessage;
-        else if (computerSelection === "Paper") return winMessage;
-    }
+function playRound() {
+    const playerSelection = makeSelection();
+    const computerSelection = computerPlay();
     
+    const result = roundValidation(playerSelection, computerSelection);
+
+    if (result === "win") return `You win! ${playerSelection} beats ${computerSelection}`;
+    else if (result === "lose") return `You lose! ${computerSelection} beats ${playerSelection}`;
+    else return "It was a tie";
+}
+
+function roundValidation(playerSelection, computerSelection) {
+    const choices = {
+        "rock": {"beats": "scissors", "beatenBy": "paper"},
+        "paper": {"beats": "rock", "beatenBy": "scissors"},
+        "scissors": {"beats": "paper", "beatenBy": "rock"}
+    }
+
+    const playerChoice = choices[playerSelection.toLowerCase()];
+    const cpuChoice = computerSelection.toLowerCase();
+    
+    if (playerChoice.beats === cpuChoice) {
+        return "win";
+    } else if (playerChoice.beatenBy === cpuChoice) {
+        return "lose";
+    }
+    return "tie";
 }
 
 function computerPlay() {
