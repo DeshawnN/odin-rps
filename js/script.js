@@ -8,7 +8,10 @@ function game() {
         const playerSelection = makeSelection();
         const computerSelection = computerPlay();
 
-        (playRound(playerSelection, computerSelection).includes("win")) ? playerScore++ : cpuScore++;
+        let result = playRound(playerSelection, computerSelection);
+        
+        console.log(result);
+        (result.includes("win")) ? playerScore++ : cpuScore++;
         
         console.log(`Player Score: ${playerScore}, CPU Score: ${cpuScore}`);
     }
