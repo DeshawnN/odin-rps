@@ -10,7 +10,7 @@ function game() {
 
         (playRound(playerSelection, computerSelection).includes("win")) ? playerScore++ : cpuScore++;
         
-        console.log(`PlayScore: ${playerScore}, CPU Score: ${cpuScore}`);
+        console.log(`Player Score: ${playerScore}, CPU Score: ${cpuScore}`);
     }
 
     console.log(`Winner: ${(playerScore > cpuScore) ? "Player" : "CPU"}`);
