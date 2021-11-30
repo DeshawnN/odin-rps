@@ -11,12 +11,16 @@ function game() {
         let result = playRound(playerSelection, computerSelection);
         
         console.log(result);
-        (result.includes("win")) ? playerScore++ : cpuScore++;
+        
+        if (result.includes("win")) playerScore++;
+        else if (result.includes("lose")) cpuScore++;
         
         console.log(`Player Score: ${playerScore}, CPU Score: ${cpuScore}`);
     }
 
-    console.log(`Winner: ${(playerScore > cpuScore) ? "Player" : "CPU"}`);
+    if (playerScore > cpuScore) console.log("Winner: Player");
+    else if (playerScore < cpuScore) console.log("Winner: CPU");
+    else console.log("Somehow... that ended in a tie");
 }
 
 function playRound(playerSelection, computerSelection) {
