@@ -1,7 +1,20 @@
-const computerSelection = computerPlay();
-const playerSelection = makeSelection();
+game();
 
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+    let playerScore = 0;
+    let cpuScore = 0;
+    
+    for (let i = 0; i < 5; i++) {
+        const playerSelection = makeSelection();
+        const computerSelection = computerPlay();
+
+        (playRound(playerSelection, computerSelection).includes("win")) ? playerScore++ : cpuScore++;
+        
+        console.log(`PlayScore: ${playerScore}, CPU Score: ${cpuScore}`);
+    }
+
+    console.log(`Winner: ${(playerScore > cpuScore) ? "Player" : "CPU"}`);
+}
 
 function playRound(playerSelection, computerSelection) {
     const winMessage = `You win! ${playerSelection} beats ${computerSelection}`;
