@@ -4,14 +4,25 @@
         <title>Rock Paper Scissors</title>
         <meta charset="utf-8">
         <style>
-            kbd {
-                padding: 3px;
-                background-color: lightgrey;
-                border-radius: 2px;
+            .buttons {
+                display: flex;
             }
 
-            code {
-                text-decoration: underline;
+            .button {
+                padding: 25px;
+                flex: 1; 
+            }
+
+            .results {
+                display: flex;
+                flex-direction: column;
+                margin: 0 auto;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .results > * {
+                flex: 1;
             }
         </style>
     </head>
