@@ -2,41 +2,28 @@ const buttons = document.querySelectorAll("button")
 const scores = [0,0];
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
+        if (scores[0] === 5 || scores[1] === 5) return;
+
         const selection = event.target.getAttribute("data-selection");
         const results = document.querySelector(".results .text");
         const resultText = playRound(selection);
         const scoresContainer = document.querySelector(".results .scores");
         
-        
         if (resultText.includes("win")) scores[0]++;
         else if (resultText.includes("lose")) scores[1]++;
 
-        results.textContent = `${resultText}`;
+        if (scores[0] === 5) {
+            results.textContent = `Player Wins`;
+        } else if (scores[1] === 5) {
+            results.textContent = `COM Wins`;
+        } else {
+            results.textContent = `${resultText}`;
+        }
+        
         scoresContainer.textContent = `Player: ${scores[0]} | COM: ${scores[1]}`;
         
     });
 });
-
-function game() {
-    let playerScore = 0;
-    let cpuScore = 0;
-    
-    for (let i = 0; i < 5; i++) {
-        let result = playRound();
-        
-        console.log(result);
-        alert(result);
-        
-        if (result.includes("win")) playerScore++;
-        else if (result.includes("lose")) cpuScore++;
-        
-        console.log(`Player Score: ${playerScore}, CPU Score: ${cpuScore}`);
-    }
-
-    if (playerScore > cpuScore) console.log("Winner: Player");
-    else if (playerScore < cpuScore) console.log("Winner: CPU");
-    else console.log("Somehow... that ended in a tie");
-}
 
 function playRound(playerChoice) {
     const playerSelection = makeSelection(playerChoice);
