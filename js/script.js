@@ -1,16 +1,30 @@
-const buttons = document.querySelectorAll("button")
-const scores = [0,0];
+const buttons = document.querySelectorAll("button");
+const results = document.querySelector(".results .text");
+const scoresContainer = document.querySelector(".results .scores");
+let scores = [0,0];
+const resetButton = document.querySelector(".results .reset");
+
+resetButton.addEventListener('click', () => {
+    scores = [0,0];
+    results.textContent = "";
+    scoresContainer.textContent = "";
+    resetButton.setAttribute("disabled", true);
+}, {capture: true});
+
 buttons.forEach(button => {
     button.addEventListener("click", (event) => {
         if (scores[0] === 5 || scores[1] === 5) return;
 
         const selection = event.target.getAttribute("data-selection");
-        const results = document.querySelector(".results .text");
+        
         const resultText = playRound(selection);
-        const scoresContainer = document.querySelector(".results .scores");
         
         if (resultText.includes("win")) scores[0]++;
         else if (resultText.includes("lose")) scores[1]++;
+
+        if (scores[0] === 5 || scores[1] === 5) {
+            resetButton.removeAttribute("disabled");
+        }
 
         if (scores[0] === 5) {
             results.textContent = `Player Wins`;
@@ -21,7 +35,6 @@ buttons.forEach(button => {
         }
         
         scoresContainer.textContent = `Player: ${scores[0]} | COM: ${scores[1]}`;
-        
     });
 });
 
