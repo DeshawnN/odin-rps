@@ -1,3 +1,22 @@
+const buttons = document.querySelectorAll("button")
+const scores = [0,0];
+buttons.forEach(button => {
+    button.addEventListener("click", (event) => {
+        const selection = event.target.getAttribute("data-selection");
+        const results = document.querySelector(".results .text");
+        const resultText = playRound(selection);
+        const scoresContainer = document.querySelector(".results .scores");
+        
+        
+        if (resultText.includes("win")) scores[0]++;
+        else if (resultText.includes("lose")) scores[1]++;
+
+        results.textContent = `${resultText}`;
+        scoresContainer.textContent = `Player: ${scores[0]} | COM: ${scores[1]}`;
+        
+    });
+});
+
 function game() {
     let playerScore = 0;
     let cpuScore = 0;
@@ -19,8 +38,8 @@ function game() {
     else console.log("Somehow... that ended in a tie");
 }
 
-function playRound() {
-    const playerSelection = makeSelection();
+function playRound(playerChoice) {
+    const playerSelection = makeSelection(playerChoice);
     const computerSelection = computerPlay();
     
     const result = roundValidation(playerSelection, computerSelection);
@@ -55,19 +74,9 @@ function computerPlay() {
     return choices[rand];
 }
 
-function makeSelection() {
-    let choice;
-    let validChoice = false;
-
-    while (!validChoice) {
-        choice = prompt("Rock, Paper or Scissors?");
-        if (choice !== null) {
-            choice = choice.toLowerCase();
-        }
-
-        validChoice = (choice === "rock" || choice === "paper" || choice === "scissors") ? true : false;
-    }
-
+function makeSelection(selection) {
+    let choice = selection;
+    
     choice = choice[0].toUpperCase() + choice.slice(1).toLowerCase();
 
     return choice;
